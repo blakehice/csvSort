@@ -1,20 +1,32 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    // main method to run the program, first argument will be location of the file, if none give we will default to ./
+    // main method to run the program
     public static void main(String[] args) {
 
         // == start constants section ==
-        final String CORRECT_HEADER = "Name,State,Motto,Mayor"; // to verify the correct file
-        final String FILE_PATH = args.length > 0 ? args[0] : "./"; // to define where file is located
+        // to verify the correct file, we can dynamically obtain the columns defined in the enum class and use them to
+        // check the file header, after removing the included '[', ']', and ' ' (spaces) from the array to string output
+        final String CORRECT_HEADER = Arrays.toString(CSVColumn.values())
+                .replace("[","").replace("]","").replace(" ","");
+        final String FILE_PATH = "/home/blake/IdeaProjects/csvSort/resources/"; // to define where file is located
         final String INPUT_FILE_NAME = "input.csv";
         final String OUTPUT_FILE_NAME = "output.csv";
         // == end constants section ==
 
-
-        Scanner fileScanner = new Scanner(FILE_PATH + INPUT_FILE_NAME);
+        Scanner fileScanner;
+        try {
+            fileScanner = new Scanner(new File(FILE_PATH + INPUT_FILE_NAME));
+        }catch (FileNotFoundException fne){
+            System.out.println("FATAL ERROR!\nFile: '" + INPUT_FILE_NAME + "' not found at location " + FILE_PATH);
+            System.out.println("Exiting application...");
+            return;
+        }
         List<List<String>> csvLines = new ArrayList<>(); // using a list of lists to represent lines of the csv
         String fileHeader = fileScanner.hasNext() ? fileScanner.nextLine() : null;
 
