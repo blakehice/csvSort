@@ -1,5 +1,8 @@
+package main;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,14 +10,14 @@ import java.util.Scanner;
 
 public class Main {
     // main method to run the program
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // == start constants section ==
         // to verify the correct file, we can dynamically obtain the columns defined in the enum class and use them to
         // check the file header, after removing the included '[', ']', and ' ' (spaces) from the array to string output
         final String CORRECT_HEADER = Arrays.toString(CSVColumn.values())
                 .replace("[","").replace("]","").replace(" ","");
-        final String FILE_PATH = "/home/blake/IdeaProjects/csvSort/resources/"; // to define where file is located
+        final String FILE_PATH = "./resources/"; // to define where file is located
         final String INPUT_FILE_NAME = "input.csv";
         final String OUTPUT_FILE_NAME = "output.csv";
         // == end constants section ==
@@ -38,6 +41,7 @@ public class Main {
                 // we split the list on the ',' so that we can access each field of the record. useful for sorting
                 csvLines.add(List.of(currentLine.split(",")));
             }
+            System.out.println("Success");
         }else{
             System.out.println("ERROR: Expected header " + CORRECT_HEADER + " does not match actual header " + fileHeader);
         }

@@ -1,3 +1,5 @@
+package main;
+
 public enum CSVColumn {
     NAME(0),
     STATE(1),
