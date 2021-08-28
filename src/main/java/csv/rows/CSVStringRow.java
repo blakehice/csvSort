@@ -1,9 +1,14 @@
-package main.java;
+package main.java.csv.rows;
+
+import main.java.csv.fields.CSVField;
+import main.java.csv.columns.CSVColumns;
+import main.java.csv.fields.StringCSVField;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class CSVStringRow implements CSVRow<String>{
+public class CSVStringRow implements CSVRow<String> {
 
     // == fields ==
     private final int lineNumber;
@@ -33,6 +38,17 @@ public class CSVStringRow implements CSVRow<String>{
         return lineText;
     }
 
+    // define new comparator so we can sort the records based on the given column
+    @Override
+    public Comparator<CSVRow<String>> getComparator(CSVColumns sortColumn) {
+        return new Comparator<>() {
+            @Override
+            public int compare(CSVRow<String> thisRecord, CSVRow<String> otherRecord) {
+                return thisRecord.getFields().get(sortColumn.getSortNumber()).compareTo(otherRecord.getFields().get(sortColumn.getSortNumber()).getContent());
+            }
+        };
+    }
+
     public String getLineText() {
         return lineText;
     }
@@ -40,6 +56,7 @@ public class CSVStringRow implements CSVRow<String>{
     public boolean rowContentEqualsIgnoreCase(CSVStringRow otherRow){
         return this.lineText.equalsIgnoreCase(otherRow.getLineText());
     }
+
 
     // == private methods ==
 
@@ -50,7 +67,7 @@ public class CSVStringRow implements CSVRow<String>{
     private List<CSVField<String>> setFields(){
         List<CSVField<String>> fieldList = new ArrayList<>();
         for(String field : lineText.split(",")){
-            fieldList.add(new CSVField<>(field));
+            fieldList.add(new StringCSVField(field));
         }
         return fieldList;
     }
