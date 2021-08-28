@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,16 +17,16 @@ public class Main {
         // check the file header, after removing the included '[', ']', and ' ' (spaces) from the array to string output
         final String CORRECT_HEADER = Arrays.toString(CSVColumn.values())
                 .replace("[","").replace("]","").replace(" ","");
-        final String FILE_PATH = "./resources/"; // to define where file is located
-        final String INPUT_FILE_NAME = "input.csv";
+        final String INPUT_FILE_NAME = "main/resources/input.csv";
         final String OUTPUT_FILE_NAME = "output.csv";
         // == end constants section ==
 
         Scanner fileScanner;
+        Scanner consoleInput = new Scanner(System.in);
         try {
-            fileScanner = new Scanner(new File(FILE_PATH + INPUT_FILE_NAME));
+            fileScanner = new Scanner(new File(INPUT_FILE_NAME));
         }catch (FileNotFoundException fne){
-            System.out.println("FATAL ERROR!\nFile: '" + INPUT_FILE_NAME + "' not found at location " + FILE_PATH);
+            System.out.println("FATAL ERROR!\nFile: '" + INPUT_FILE_NAME + "' not found");
             System.out.println("Exiting application...");
             return;
         }
@@ -41,7 +41,8 @@ public class Main {
                 // we split the list on the ',' so that we can access each field of the record. useful for sorting
                 csvLines.add(List.of(currentLine.split(",")));
             }
-            System.out.println("Success");
+
+            System.out.println("good");
         }else{
             System.out.println("ERROR: Expected header " + CORRECT_HEADER + " does not match actual header " + fileHeader);
         }

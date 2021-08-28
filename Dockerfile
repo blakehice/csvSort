@@ -1,4 +1,6 @@
 FROM openjdk:11
-COPY ./out/production/csvSort/ /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "main.Main"]
+COPY ./out/production/csvSort/ ./
+RUN 'pwd'
+RUN 'ls'
+ENTRYPOINT ["java", "main.java.Main"]
