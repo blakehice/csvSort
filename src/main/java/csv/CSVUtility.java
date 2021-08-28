@@ -11,9 +11,18 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * this is a utility class to hold all CSV file operations
+ */
 public class CSVUtility {
 
-    // when we create more csv column enums we can use this method to dynamically handle reading the csv file
+
+
+    /**
+     * This function determines the correct header line for a csv file by using a child class of CSVColumn enum interface
+     * when we create more csv column enums we can use this method to dynamically handle reading the csv file
+     * @return returns the correct layout of a given csv file header
+     */
     public static CSVStringRow getCorrectHeader(){
         // to verify the correct file, we can dynamically obtain the columns defined in the enum class and use them to
         // check the file header, after removing the included '[', ']', and ' ' (spaces) from the array to string output
@@ -21,6 +30,11 @@ public class CSVUtility {
                 .replace("[","").replace("]","").replace(" ",""), -1);
     }
 
+    /**
+     * This method reads in a csv file and stores it as a CSVFile object
+     * @param inputFile location of the file to be loaded into a CSVFile object
+     * @return returns the CSVFile object representation for a physical csv file
+     */
     public static CSVFile<String> loadStringCSVFile(String inputFile){
 
         Scanner fileScanner;
@@ -48,6 +62,12 @@ public class CSVUtility {
         return csvFile;
     }
 
+    /**
+     *  This function determines what sort column to sort a csv file by using command
+     *  line argument or user input from console
+     * @param args command line arguments
+     * @return returns the csvColumn that we are going to sort by
+     */
     public static CSVColumns getSortColumn(String[] args){
         String userInputColumn;
         // handles input from command line arg
@@ -76,6 +96,12 @@ public class CSVUtility {
         return sortColumn;
     }
 
+    /**
+     * this method writes a string CSV file to the given output file
+     * @param csvFile csv file object  to be written
+     * @param outputFile location of the output file
+     * @throws IOException
+     */
     public static void writeStringCsvFile(CSVFile<String> csvFile, String outputFile) throws IOException {
         FileWriter fileWriter = new FileWriter(outputFile);
         fileWriter.write(csvFile.toString());

@@ -1,5 +1,8 @@
 package main.java.csv.columns;
 
+/**
+ * Standard city CSV header definition
+ */
 public enum CityCSVColumns implements CSVColumns{
     // == enum definition ==
     NAME(0),
