@@ -1,0 +1,5 @@
+Scenario: Read a csv file and sort by a column defined in the header. Write out the sorted csv to a new file.
+    Given that the csv file layout is defined within the codebase
+    And the csv content matches the header
+    When you sort by a column in the header
+    Then the rows of the csv will be sorted by that column and written to output.csv
