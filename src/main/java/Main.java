@@ -13,7 +13,7 @@ public class Main {
         // == start constants section ==
         final String INPUT_FILE_NAME = "src/main/resources/input.csv";
         final String OUTPUT_FILE_NAME = "src/main/resources/output.csv";
-        final boolean debug = false;
+        final boolean DEBUG = false;
         // == end constants section ==
 
         CSVFile<String> csvFile = CSVUtility.loadStringCSVFile(INPUT_FILE_NAME);
@@ -22,14 +22,14 @@ public class Main {
             CSVColumns sortColumn = CSVUtility.getSortColumn(args);
             if(sortColumn != null) {
 
-                if(debug) {
+                if(DEBUG) {
                     System.out.println("\norder before sort\n");
                     System.out.println(csvFile);
                 }
 
                 csvFile.sortRowsByColumn(sortColumn);
 
-                if(debug) {
+                if(DEBUG) {
                     System.out.println("\norder after sort\n");
                     System.out.println(csvFile);
                 }
